@@ -37,7 +37,7 @@ public class Board implements ActionListener{
 
 
     //Becomes true once there is a cats game, so the computer doesn't try to move again.
-    private boolean catsGame = false;
+    private boolean gameOver = false;
 
 
     public Board()
@@ -110,7 +110,7 @@ public class Board implements ActionListener{
             b.setText("X");
             turnComplete();
             CatsGame();
-            if (catsGame == false)
+            if (gameOver == false)
             {
                 c.computerTurn();
             }
@@ -201,7 +201,7 @@ public class Board implements ActionListener{
     }
 
 
-    //This method resets the buttons, counter, statuslbl, and catsGame.
+    //This method resets the buttons, counter, statuslbl, and gameOver.
     public void reset()
     {
         for (int i = 0; i < 9; i++)
@@ -212,7 +212,7 @@ public class Board implements ActionListener{
         turn = false;
         statuslbl.setText("Player's Turn!");
         turnCount = 0;
-        catsGame = false;
+        gameOver = false;
         c.resetDiag();
         playagain.setVisible(false);
 
@@ -237,11 +237,16 @@ public class Board implements ActionListener{
         {
             reset();
         }
+        else if (gameOver == true)
+        {
+
+        }
         else
         {
             setButton(button, turn);
             CheckVictory();
         }
+
 
 
 
@@ -290,7 +295,7 @@ public class Board implements ActionListener{
         {
             statuslbl.setText("Cat's Game!");
             playagain.setVisible(true);
-            catsGame = true;
+            gameOver = true;
         }
     }
 
@@ -313,11 +318,13 @@ public class Board implements ActionListener{
                 if ((getButtonTXT(PossibleWins[i][0]).equals("X")))
                 {
                     playagain.setVisible(true);
+                    gameOver = true;
                     statuslbl.setText("This Program is broken!");
                 }
                 if ((getButtonTXT(PossibleWins[i][0]).equals("O")))
                 {
                     playagain.setVisible(true);
+                    gameOver = true;
                     statuslbl.setText("Computer Wins, great effort!");
 
                 }
