@@ -89,14 +89,20 @@ public class Computer {
         //If all of these are true moves to the right center
         else if (b.getButtonTXT(4) == "O" && b.getTurnCount() == 3 && b.getButtonTXT(3) == "" && b.getButtonTXT(6) == "X")
         {
-            return 3;
+            if (b.getButtonTXT(5) == "X")
+                return 2;
+            else
+                return 3;
         }
 
         //Checks to see if the middle is 'O', and if it's the second turn and the middle right is open and they moved to in the bottom right
         //added because they were the only way I beat the computer prior to them
         else if (b.getButtonTXT(4) == "O" && b.getTurnCount() == 3 && b.getButtonTXT(5) == "" && b.getButtonTXT(8) == "X")
         {
-            return 5;
+            if (b.getButtonTXT(3) == "X")
+                return 0;
+            else
+                return 5;
         }
         else if (b.getButtonTXT(5) == "X" &&  b.getTurnCount() == 3 && b.getButtonTXT(7) == "X" && b.getButtonTXT(8) == "")
         {
