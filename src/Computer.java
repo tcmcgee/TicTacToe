@@ -98,6 +98,10 @@ public class Computer {
         {
             return 5;
         }
+        else if (b.getButtonTXT(5) == "X" &&  b.getTurnCount() == 3 && b.getButtonTXT(7) == "X" && b.getButtonTXT(8) == "")
+        {
+            return 8;
+        }
 
         //The following cases go through each possible way to win, and if there are two of the same, the computer automatically blocks it, but in the way the Ifs are ordered
         //the computer prioritizes victory for itself, before blocking the opponent
