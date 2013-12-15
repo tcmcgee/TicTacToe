@@ -51,6 +51,19 @@ public class Computer {
 
         }
 
+        //If checkMoves doesn't have a required move, checks if checkmoves2 does
+        if (move == -1)
+        {
+
+
+            for (int i=0; i < 8; i++)
+            {
+                move = CheckMoves2(PossibleWins[i][0],PossibleWins[i][1],PossibleWins[i][2]);
+                if (move != -1)
+                    break;
+
+            }
+        }
         //If the move is -1 or noMove checks to see if diagonals still need to be blocked, if they do, blocks them accordingly
         //Otherwise call the randomMove() fn
         if (move == -1 || move == b.getNoMove())
@@ -75,7 +88,7 @@ public class Computer {
     //CheckMoves evaluates the current board and prioritizes a few special cases
     public static int CheckMoves(int x, int y, int z)
     {
-        System.out.println(b.getTurnCount());
+
 
         //Mose special cases were added after playing against the prior bot, so are very hard coded
 
@@ -124,21 +137,31 @@ public class Computer {
         {
             return x;
         }
-        else if ((b.getButtonTXT(x).equals(b.getButtonTXT(y))) && b.getButtonTXT(x) != "" && b.getButtonTXT(y) != "" && b.getButtonTXT(z) == "" && b.getButtonTXT(y) != "O")
-        {
-            return z;
-        }
-        else if((b.getButtonTXT(x).equals(b.getButtonTXT(z)))&& b.getButtonTXT(x) != "" && b.getButtonTXT(z) != ""  && b.getButtonTXT(y) == ""  && b.getButtonTXT(x) != "O")
-        {
-            return y;
-        }
-        else if((b.getButtonTXT(y).equals(b.getButtonTXT(z)))&& b.getButtonTXT(y) != "" && b.getButtonTXT(z) != ""  && b.getButtonTXT(x) == ""  && b.getButtonTXT(y) != "O")
-        {
-            return x;
-        }
         else
             return -1;
 
+    }
+
+
+    //The if statements in CheckMoves 2 used to be in checkmoves, but this checks to see if there needs to be a victory blocked
+    //Since this is run after CheckMoves, the computer will always win when given the chance while when these were together the computer would block you if
+    //You were in a row higher.
+    public int CheckMoves2(int x, int y, int z)
+    {
+    if ((b.getButtonTXT(x).equals(b.getButtonTXT(y))) && b.getButtonTXT(x) != "" && b.getButtonTXT(y) != "" && b.getButtonTXT(z) == "" && b.getButtonTXT(y) != "O")
+    {
+        return z;
+    }
+    else if((b.getButtonTXT(x).equals(b.getButtonTXT(z)))&& b.getButtonTXT(x) != "" && b.getButtonTXT(z) != ""  && b.getButtonTXT(y) == ""  && b.getButtonTXT(x) != "O")
+    {
+        return y;
+    }
+    else if((b.getButtonTXT(y).equals(b.getButtonTXT(z)))&& b.getButtonTXT(y) != "" && b.getButtonTXT(z) != ""  && b.getButtonTXT(x) == ""  && b.getButtonTXT(y) != "O")
+    {
+        return x;
+    }
+    else
+        return -1;
     }
 
 
