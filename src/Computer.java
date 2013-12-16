@@ -98,15 +98,24 @@ public class Computer {
             return 4;
         }
 
-        //Checks to see if the computer moved to the center square, checks if it's the second turn, and if the left middle is empty and the player moved to the bottom left
-        //If all of these are true moves to the right center
-        else if (b.getButtonTXT(4) == "O" && b.getTurnCount() == 3 && b.getButtonTXT(3) == "" && b.getButtonTXT(6) == "X")
+        //Checks to see if the computer moved to the center square, checks if it's the third turn, then has to see if the player has moved
+        //into the bottom row, if they have block them accordingly, otherwise prevent the 3 corners tactic.
+        else if (b.getButtonTXT(4) == "O" && b.getTurnCount() == 3 && b.getButtonTXT(3) == "" && (b.getButtonTXT(6) == "X" || b.getButtonTXT(7) == "X" || b.getButtonTXT(8) == "X" ))
         {
             if (b.getButtonTXT(5) == "X")
                 return 2;
-            else if (b.getButtonTXT(8) == "X" && b.getButtonTXT(6) == "X")
+            else if (b.getButtonTXT(8) == "X" && b.getButtonTXT(6) == "X"   )
             {
                 return 7;
+            }
+            else if (b.getButtonTXT(8) == "X" && b.getButtonTXT(7) == "X")
+            {
+                return 6;
+
+            }
+            else if (b.getButtonTXT(7) == "X" && b.getButtonTXT(6) == "X")
+            {
+                return 8;
             }
             else
                 return 3;
