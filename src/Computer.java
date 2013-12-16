@@ -104,6 +104,10 @@ public class Computer {
         {
             if (b.getButtonTXT(5) == "X")
                 return 2;
+            else if (b.getButtonTXT(8) == "X" && b.getButtonTXT(6) == "X")
+            {
+                return 7;
+            }
             else
                 return 3;
         }
