@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,25 +11,27 @@ import java.awt.event.ActionListener;
  * Time: 5:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Board implements ActionListener{
+public class Board implements ActionListener, ComponentListener {
 
     private Computer c;
 
+
+    private JFrame frame;
+
     //Creates a list on 9 JButtons, these will be clicked by the User to decide where to move
-    private JButton[] buttons = new JButton[9];
+    private static JButton[] buttons = new JButton[9];
 
     //Creates the variable turn, and initializes it to false. Whenever the turn is false it's the players turn.
     //Soooo, the player always has the first turn.
-    private boolean turn = false;
+    private boolean turn;
 
     //statuslbl, is the Status Label for the game, it displays who's turn it is. Who won, and if it's a cats game.
-    private JLabel statuslbl = new JLabel("Player's Turn!");
+    private JLabel statuslbl = new JLabel();
 
-    //noMove is a variable created on the fly, as the Computer was apparently moving faster than the computer could
-    //set the text of the players move, so it is simply off limits to the computer's use and is initialized as -5, a value the computer would never use.
-    private int noMove = -5;
+    private int turnCount;
 
-    private int turnCount = 0;
+    private int buttonFontStart;
+    private int labelFontStart;
 
     //Play again is a hidden JButton that appears only once the game has been deemed over, which resets all the JButtons to "" and the turnCount back to 0.
     private JButton playagain = new JButton("Play Again");
@@ -38,12 +39,68 @@ public class Board implements ActionListener{
 
     //Becomes true once there is a cats game, so the computer doesn't try to move again.
     private boolean gameOver = false;
+    private Dimension[] startsizes = new Dimension[12];
+    private Point[] startLocations = new Point[12];
+
+    public static int resizeCounter = 0;
+    public static double startWidth;
+    public static double startHeight;
+    public static double currentWidth;
+    public static double currentHeight;
 
 
     public Board()
     {
         c = new Computer(this);
+        CreateGUI();
+        WhoFirst();
 
+
+
+
+
+    }
+
+    private void WhoFirst()
+    {
+        String[] choices = new String[2];
+        choices[0] = "Player";
+        choices[1] = "Computer";
+        int choice = JOptionPane.showOptionDialog(null, //Component parentComponent
+                "Who will go first?", //Object message,
+                "Choose an option", //String title
+                JOptionPane.YES_NO_OPTION, //int optionType
+                JOptionPane.INFORMATION_MESSAGE, //int messageType
+                null, //Icon icon,
+                choices, //Object[] options,
+                "Player");//Object initialValue
+
+
+        if (choice == 0)
+        {
+            turn = false;
+            turnCount = 0;
+            statuslbl.setText("Player's Turn!");
+
+        }
+        else if (choice == -1)
+        {
+
+            //Closes the Jframe when the X is hit on the Dialog box
+            WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
+            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
+
+        }
+
+        else
+        {
+            turn = true;
+            turnCount = 1;
+
+            c.computerTurn();
+            statuslbl.setText("Player's Turn!");
+
+        }
     }
 
     public int getTurnCount()
@@ -51,16 +108,9 @@ public class Board implements ActionListener{
         return turnCount;
     }
 
-    public int getNoMove()
-    {
-        return noMove;
-    }
-
-
-
 
     //turnComplete changes the turn and adds to the turnCount, called whenever a move is made on the board.
-    public void turnComplete()
+    private void turnComplete()
     {
         turn = !turn;
         turnCount++;
@@ -120,40 +170,93 @@ public class Board implements ActionListener{
 
     }
 
+    public void resize (double x,double y)
+    {
+
+
+        double multiplier = 0;
+        if (x < y)
+            multiplier = x;
+        else
+            multiplier = y;
+        for (int i = 0; i < 9; i++)
+        {
+
+            buttons[i].setSize((new Dimension((int) ((double)startsizes[i].getWidth() * x), (int) ((double)startsizes[i].getHeight() * y))));
+            buttons[i].setLocation((new Point((int) (startLocations[i].getX() * x), (int)(startLocations[i].getY() * y))));
+
+            buttons[i].setFont(new Font("Dialog",Font.PLAIN, (int) ((double)buttonFontStart * multiplier )));
+
+        }
+        playagain.setSize(new Dimension( (int) (startsizes[9].getWidth() * x), (int) (startsizes[9].getHeight() * y)));
+        playagain.setLocation(new Point((int) (startLocations[9].getX() * x), (int) (startLocations[9].getY() * y)));
+        statuslbl.setSize(new Dimension((int) (startsizes[10].getWidth() * x), (int) (startsizes[10].getHeight() * y)));
+        statuslbl.setLocation(new Point((int) (startLocations[10].getX() * x), (int) (startLocations[10].getY() * y)));
+        playagain.setFont(new Font("Dialog",Font.PLAIN, (int) ((double)labelFontStart * multiplier )));
+        statuslbl.setFont(new Font("Dialog",Font.PLAIN, (int) ((double)labelFontStart * multiplier )));
+
+
+        //System.out.println(x + ", " + y);
+        frame.pack();
+
+
+
+
+
+    }
+
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        if (resizeCounter == 0)
+        {
+            startWidth = frame.getPreferredSize().getWidth();
+            startHeight = frame.getPreferredSize().getHeight();
+            resizeCounter++;
+        }
+
+        currentHeight = frame.getHeight();
+
+        currentWidth = frame.getWidth();
+        //System.out.println(currentWidth + ", " + currentHeight);
+
+        resize( currentWidth / startWidth, (currentHeight) / startHeight);
+        frame.setPreferredSize(new Dimension((int)currentWidth, (int)currentHeight));
+       // CreateGUI();
+
+
+    }
+
+
+
+      
 
 
 
     public void CreateGUI()
     {
         //Creates a new JFrame and sets its dimensions to 800,600 the size of the Tic Tac Toe board Image
-        JFrame frame = new JFrame("Tic Tac Toe");
-        frame.setPreferredSize(new Dimension(800,600));
+        frame = new JFrame("Tic Tac Toe");
+        frame.addComponentListener(this);
+        frame.setPreferredSize(new Dimension(800, 600));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-        //Creates two fonts one to be used for the statuslbl the other to be used for each Jbutton
-        Font large = new Font("Dialog", Font.PLAIN, 80);
-        Font small = new Font("Dialog", Font.PLAIN, 20);
-
-
-
-        //JButton button = new JButton("TEST");
-
-        //Setting the layout to null allows me to place each element easier with .setBounds();
+        frame.setResizable(true);
         frame.setLayout(null);
-
-        //Uploads the Image included in the src file of a Tic Tac Toe board. And sets it's coordinates to (0,0) and size to 800 x 600
-        ImageIcon board_path = new ImageIcon("src/TicTacToe.jpg") ;
-        JLabel board = new JLabel(board_path);
-        board.setBounds(0,0,800,600);
+        frame.setAlwaysOnTop(true);
 
 
-        statuslbl.setFont(small);
 
+
+        Font ButtonFont = new Font("Dialog", Font.PLAIN, 80);
+        buttonFontStart = 80;
+        Font LabelFont = new Font("Dialog", Font.PLAIN, 20);
+        labelFontStart = 20;
+
+        statuslbl.setFont(LabelFont);
 
         //Sets the location and visibility of the play again button, which is invisible until the game ends
         playagain.setVisible(false);
-        playagain.setBounds(0,0,200,50);
 
 
 
@@ -161,15 +264,29 @@ public class Board implements ActionListener{
         for (int i = 0; i < 9; i++)
         {
             buttons[i] = new JButton("");
-            buttons[i].setFont(large);
+            buttons[i].setFont(ButtonFont);
             buttons[i].addActionListener(this);
             // System.out.println(buttons[i]);
+            int eachWidth = (int)(.441 * (double) (frame.getPreferredSize().getWidth()));
+            //System.out.println(frame.getPreferredSize().getWidth());
+
+            buttons[i].setSize(new Dimension((int) (.3441 *  frame.getPreferredSize().getWidth() - 30), (int) (.4 * frame.getPreferredSize().getHeight() - 100 )));
+            startsizes[i] = buttons[i].getSize();
+           // System.out.println(buttons[i]);
         }
 
         //Adds an ActionListener to playAgain and sets the bounds of each button. Bounds were found by guessing & checking
         playagain.addActionListener(this);
+        playagain.setLocation(0,0);
+        playagain.setSize(200,50);
         statuslbl.setBounds(350,0,300,50);
-        buttons[0].setBounds(0,50,265,150);
+        statuslbl.setLocation(350,0);
+        statuslbl.setSize(300,50);
+        startLocations[9] = playagain.getLocation();
+        startLocations[10] = statuslbl.getLocation();
+        startsizes[9] = playagain.getSize();
+        startsizes[10] = statuslbl.getSize();
+       /* buttons[0].setBounds(0,50,265,150);
         buttons[1].setBounds(273,50,265,150);
         buttons[2].setBounds(546,50,265,150);
         buttons[3].setBounds(0,205,265,190);
@@ -177,20 +294,33 @@ public class Board implements ActionListener{
         buttons[5].setBounds(546,205,265,190);
         buttons[6].setBounds(0,405,265,190);
         buttons[7].setBounds(273,405,265,190);
-        buttons[8].setBounds(546,405,265,190);
+        buttons[8].setBounds(546,405,265,190); */
+
+
+        buttons[0].setLocation(10, 50);
+        buttons[1].setLocation(283, 50);
+        buttons[2].setLocation(556, 50);
+        buttons[3].setLocation(10, 228);
+        buttons[4].setLocation(283, 228);
+        buttons[5].setLocation(556, 228);
+        buttons[6].setLocation(10, 405);
+        buttons[7].setLocation(283, 405);
+        buttons[8].setLocation(556, 405);
+
 
         //For loop adds each large Jbutton to the ContentPane, these will be the buttons that the user clicks during his turn
         for (int i = 0; i < 9; i++)
         {
+            startLocations[i] = buttons[i].getLocation();
             frame.getContentPane().add(buttons[i]);
         }
 
 
 
-        //adds the play again button, status label, and the image of the Tic Tac Toe board.
+        //adds the play again button, status label to the Jframe
         frame.getContentPane().add(playagain);
         frame.getContentPane().add(statuslbl);
-        frame.getContentPane().add(board);
+
 
 
         //Packs the frame and makes it visible
@@ -202,19 +332,19 @@ public class Board implements ActionListener{
 
 
     //This method resets the buttons, counter, statuslbl, and gameOver.
-    public void reset()
+    private void reset()
     {
         for (int i = 0; i < 9; i++)
         {
             buttons[i].setText("");
 
         }
-        turn = false;
-        statuslbl.setText("Player's Turn!");
-        turnCount = 0;
         gameOver = false;
         c.resetDiag();
         playagain.setVisible(false);
+        WhoFirst();
+
+
 
     }
 
@@ -228,7 +358,6 @@ public class Board implements ActionListener{
         {
             if (button.equals(buttons[i]))
             {
-                noMove = i;
             }
         }
 
@@ -264,7 +393,7 @@ public class Board implements ActionListener{
     }
 
 
-    public boolean ThreeEqual(int[] ls)
+    private boolean ThreeEqual(int[] ls)
     {
         //Checks if the buttons at the index of the 3 int list are all the same.
         if ((getButtonTXT(ls[0]) != "") &&  (getButtonTXT(ls[1]) != "") && (getButtonTXT(ls[2]) != ""))
@@ -279,7 +408,7 @@ public class Board implements ActionListener{
 
     }
 
-    public void CatsGame()
+    private void CatsGame()
     {
 
         //Cycles through each button, if the button isn't "" adds 1, if the counter reaches 9 it's a cats game.
@@ -293,14 +422,14 @@ public class Board implements ActionListener{
         }
         if (counter == 9)
         {
-            statuslbl.setText("Cat's Game!");
+            statuslbl.setText("It's a Tie!");
             playagain.setVisible(true);
             gameOver = true;
         }
     }
 
 
-    public void CheckVictory()
+    private void CheckVictory()
     {
         //A 2D array of all possible wins
         int[][] PossibleWins ={{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}};
@@ -319,7 +448,7 @@ public class Board implements ActionListener{
                 {
                     playagain.setVisible(true);
                     gameOver = true;
-                    statuslbl.setText("This Program is broken!");
+                    statuslbl.setText("Player Wins, Congratulations!");
                 }
                 if ((getButtonTXT(PossibleWins[i][0]).equals("O")))
                 {
@@ -336,6 +465,20 @@ public class Board implements ActionListener{
         if (playagain.isVisible() == false)
             CatsGame();
 
+
+    }
+
+
+    public void componentMoved(ComponentEvent e)
+    {
+
+    }
+    public void componentHidden(ComponentEvent e)
+    {
+
+    }
+    public void componentShown(ComponentEvent e)
+    {
 
     }
 

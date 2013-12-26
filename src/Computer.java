@@ -45,7 +45,7 @@ public class Computer {
         //calls check move on each possible win, referencing the board, if a move is found break the for loop and continue.
         for (int i=0; i < 8; i++)
         {
-            move = CheckMoves(PossibleWins[i][0],PossibleWins[i][1],PossibleWins[i][2]);
+            move = CheckComputerWin(PossibleWins[i][0], PossibleWins[i][1], PossibleWins[i][2]);
             if (move != -1)
                 break;
 
@@ -58,7 +58,7 @@ public class Computer {
 
             for (int i=0; i < 8; i++)
             {
-                move = CheckMoves2(PossibleWins[i][0],PossibleWins[i][1],PossibleWins[i][2]);
+                move = CheckPlayerWin(PossibleWins[i][0], PossibleWins[i][1], PossibleWins[i][2]);
                 if (move != -1)
                     break;
 
@@ -66,7 +66,7 @@ public class Computer {
         }
         //If the move is -1 or noMove checks to see if diagonals still need to be blocked, if they do, blocks them accordingly
         //Otherwise call the randomMove() fn
-        if (move == -1 || move == b.getNoMove())
+        if (move == -1 /*|| move == b.getNoMove()*/)
         {
             if (diagOne && diagTwo)
                 move = randomMove();
@@ -85,15 +85,19 @@ public class Computer {
 
 
 
-    //CheckMoves evaluates the current board and prioritizes a few special cases
-    public static int CheckMoves(int x, int y, int z)
+    //CheckComputerWin evaluates the current board and prioritizes a computer victory over blocking a player
+    private static int CheckComputerWin(int x, int y, int z)
     {
+
+        //Stops top left
+        if (b.getTurnCount() == 5 && b.getButtonTXT(1) == "X" && b.getButtonTXT(6) == "X" && b.getButtonTXT(5) == "X")
+            return 8;
 
 
         //Mose special cases were added after playing against the prior bot, so are very hard coded
 
         //If it's the first turn and the player didn't move to the center, the computer always takes the center
-        if (b.getTurnCount() == 1 && b.getNoMove() != 4)
+        if (b.getTurnCount() == 1 && b.getButtonTXT(4) != "X")
         {
             return 4;
         }
@@ -156,10 +160,8 @@ public class Computer {
     }
 
 
-    //The if statements in CheckMoves 2 used to be in checkmoves, but this checks to see if there needs to be a victory blocked
-    //Since this is run after CheckMoves, the computer will always win when given the chance while when these were together the computer would block you if
-    //You were in a row higher.
-    public int CheckMoves2(int x, int y, int z)
+    //Is called if the computer can't win and the player needs to be blocked
+    private int CheckPlayerWin(int x, int y, int z)
     {
     if ((b.getButtonTXT(x).equals(b.getButtonTXT(y))) && b.getButtonTXT(x) != "" && b.getButtonTXT(y) != "" && b.getButtonTXT(z) == "" && b.getButtonTXT(y) != "O")
     {
@@ -181,7 +183,7 @@ public class Computer {
 
 
     //Returns a random move that the computer can make when it doesn't have an other move to make
-    public int randomMove()
+    private int randomMove()
     {
         String moveTurn = "O";
         int randy = -5;
@@ -197,8 +199,8 @@ public class Computer {
 
 
     //Diagn, checks the diagonals, as they're the trickiest locations (in my opinion) when it comes to making an AI unbeatable
-    //Diagn is only called if CheckMoves doesn't return a higher priority move.
-    public int Diagn()
+    //Diagn is only called if CheckComputerWin doesn't return a higher priority move.
+    private int Diagn()
     {
 
         if (b.getButtonTXT(0) == "" && diagOne == false)
