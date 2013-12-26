@@ -7,7 +7,7 @@ A Tic Tac Toe program made for 8th Light, should be unbeatable and win whenever 
 
 
 SRC
-	Main -- Only contains the main method, calls Board
+	Main -- Only contains the main method, calls Board (run this one)
 
 	Board -- Sets up the GUI and contains all user interface, calls Computer
 
