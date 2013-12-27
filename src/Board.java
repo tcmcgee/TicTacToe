@@ -63,10 +63,21 @@ public class Board implements ActionListener, ComponentListener {
 
     private void WhoFirst()
     {
+
+        int choice;
+        Dimension size = frame.getPreferredSize();
+        //No .OnTop for JOptionPane, so if the frame is larger than a certain size select player as the box would fall behind the screen
+
+        if (size.getWidth() > 950 && size.getHeight() > 491)
+        {
+            choice = 0;
+        }
+        else
+        {
         String[] choices = new String[2];
         choices[0] = "Player";
         choices[1] = "Computer";
-        int choice = JOptionPane.showOptionDialog(null, //Component parentComponent
+        choice = JOptionPane.showOptionDialog(null, //Component parentComponent
                 "Who will go first?", //Object message,
                 "Choose an option", //String title
                 JOptionPane.YES_NO_OPTION, //int optionType
@@ -74,6 +85,7 @@ public class Board implements ActionListener, ComponentListener {
                 null, //Icon icon,
                 choices, //Object[] options,
                 "Player");//Object initialValue
+        }
 
 
         if (choice == 0)
@@ -331,23 +343,18 @@ public class Board implements ActionListener, ComponentListener {
     }
 
 
-    //This method resets the buttons, counter, statuslbl, and gameOver.
-    private void reset()
+
+
+    public void actionPerformed(ActionEvent evt)
     {
-        for (int i = 0; i < 9; i++)
-        {
-            buttons[i].setText("");
 
-        }
-        gameOver = false;
-        c.resetDiag();
-        playagain.setVisible(false);
-        WhoFirst();
-
+        //Gets the source of the object and casts it to a button then passes the button to Clicked to perform an action on the board
+        Object src = evt.getSource();
+        JButton clicked = (JButton) src;
+        clicked(clicked);
 
 
     }
-
 
     public void clicked(JButton button)
     {
@@ -382,15 +389,13 @@ public class Board implements ActionListener, ComponentListener {
 
     }
 
-    public void actionPerformed(ActionEvent evt) {
-
-        //Gets the source of the object and casts it to a button then passes the button to Clicked to perform an action on the board
-        Object src = evt.getSource();
-        JButton clicked = (JButton) src;
-        clicked(clicked);
 
 
-    }
+    //// All Previous methods were building the UI, or Interacting with it, the following methods check for victory, and reset the game board! ////
+
+
+
+
 
 
     private boolean ThreeEqual(int[] ls)
@@ -467,6 +472,34 @@ public class Board implements ActionListener, ComponentListener {
 
 
     }
+
+    //This method resets the buttons, counter, statuslbl, and gameOver.
+    private void reset()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            buttons[i].setText("");
+
+        }
+        gameOver = false;
+        c.resetDiag();
+        playagain.setVisible(false);
+        WhoFirst();
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void componentMoved(ComponentEvent e)

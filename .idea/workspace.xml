@@ -78,23 +78,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Computer.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Computer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Computer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="39" selection-start="2046" selection-end="2046" vertical-scroll-proportion="-16.384615" vertical-offset="951" max-vertical-offset="4080">
+            <state line="117" column="0" selection-start="3475" selection-end="3475" vertical-scroll-proportion="0.32806325" vertical-offset="1823" max-vertical-offset="4114">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Board.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Board.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="184" column="0" selection-start="4713" selection-end="4713" vertical-scroll-proportion="0.35416666" vertical-offset="2958" max-vertical-offset="8398">
+            <state line="79" column="10" selection-start="2330" selection-end="2330" vertical-scroll-proportion="-8.653846" vertical-offset="1118" max-vertical-offset="8959">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3067#3068#0" expanded="true" />
-                <element signature="e#3099#3100#0" expanded="true" />
+                <element signature="e#3411#3412#0" expanded="true" />
+                <element signature="e#3443#3444#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -110,10 +110,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/Computer.java" />
         <option value="$PROJECT_DIR$/src/Game.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Board.java" />
+        <option value="$PROJECT_DIR$/src/Computer.java" />
       </list>
     </option>
   </component>
@@ -523,16 +523,16 @@
       <created>1385997028734</created>
       <updated>1385997028734</updated>
       <workItem from="1388070346954" duration="10820000" />
-      <workItem from="1388083833253" duration="5192000" />
+      <workItem from="1388083833253" duration="16160000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16012000" />
+    <option name="totallyTimeSpent" value="26980000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="20" width="1471" height="1000" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -555,7 +555,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2371134" sideWeight="0.67305523" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38969764" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38969764" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -604,8 +604,8 @@
         <state line="145" column="12" selection-start="3920" selection-end="3920" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="8024">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3067#3068#0" expanded="true" />
-            <element signature="e#3099#3100#0" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3443#3444#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -629,8 +629,8 @@
         <state line="196" column="21" selection-start="6022" selection-end="6022" vertical-scroll-proportion="0.0" vertical-offset="3332" max-vertical-offset="5967">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3067#3068#0" expanded="true" />
-            <element signature="e#3099#3100#0" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3443#3444#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -654,8 +654,8 @@
         <state line="207" column="33" selection-start="6212" selection-end="6212" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3067#3068#0" expanded="true" />
-            <element signature="e#3099#3100#0" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3443#3444#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -667,21 +667,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Computer.java">
+    <entry file="file://$PROJECT_DIR$/src/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="39" selection-start="2046" selection-end="2046" vertical-scroll-proportion="-16.384615" vertical-offset="951" max-vertical-offset="4080">
-          <folding />
+        <state line="79" column="10" selection-start="2330" selection-end="2330" vertical-scroll-proportion="-8.653846" vertical-offset="1118" max-vertical-offset="8959">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3443#3444#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Board.java">
+    <entry file="file://$PROJECT_DIR$/src/Computer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="0" selection-start="4713" selection-end="4713" vertical-scroll-proportion="0.35416666" vertical-offset="2958" max-vertical-offset="8398">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3067#3068#0" expanded="true" />
-            <element signature="e#3099#3100#0" expanded="true" />
-          </folding>
+        <state line="117" column="0" selection-start="3475" selection-end="3475" vertical-scroll-proportion="0.32806325" vertical-offset="1823" max-vertical-offset="4114">
+          <folding />
         </state>
       </provider>
     </entry>

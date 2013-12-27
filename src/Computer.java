@@ -121,6 +121,8 @@ public class Computer {
             {
                 return 8;
             }
+            else if (b.getButtonTXT(2) == "X" && b.getButtonTXT(8) == "X")
+                return 5;
             else
                 return 3;
         }
