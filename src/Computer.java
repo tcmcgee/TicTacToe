@@ -10,6 +10,7 @@ import java.util.Random;
 public class Computer {
     public static Board b;
 
+
     public Random generator = new Random();
 
     //Two variables for the two diagnals, it's crucial that these are eliminated ASAP as most possibilities of two victories
@@ -76,7 +77,6 @@ public class Computer {
             }
         }
 
-
         int mymove = move;
         //System.out.println(mymove);
         b.clicked(b.getButton(mymove));
@@ -86,7 +86,7 @@ public class Computer {
 
 
     //CheckComputerWin evaluates the current board and prioritizes a computer victory over blocking a player
-    private static int CheckComputerWin(int x, int y, int z)
+    private int CheckComputerWin(int x, int y, int z)
     {
 
         //Stops top left
@@ -121,10 +121,10 @@ public class Computer {
             {
                 return 8;
             }
-            else if (b.getButtonTXT(2) == "X" && b.getButtonTXT(8) == "X")
-                return 5;
-            else
+            else if (b.getButtonTXT(0) == "X" && b.getButtonTXT(6) == "X")
                 return 3;
+            else
+                return 5;
         }
 
         //Checks to see if the middle is 'O', and if it's the second turn and the middle right is open and they moved to in the bottom right
