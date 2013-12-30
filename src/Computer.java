@@ -78,7 +78,6 @@ public class Computer {
         }
 
         int mymove = move;
-        //System.out.println(mymove);
         b.clicked(b.getButton(mymove));
     }
 
@@ -184,7 +183,6 @@ public class Computer {
 
 
 
-    //Returns a random move that the computer can make when it doesn't have an other move to make
     private int randomMove()
     {
         String moveTurn = "O";

@@ -63,17 +63,12 @@ public class Board implements ActionListener, ComponentListener {
 
     private void WhoFirst()
     {
-
+        Point invisLocation = frame.getLocation();
+        Dimension invisSize = frame.getSize();
+        frame.setVisible(false);
         int choice;
         Dimension size = frame.getPreferredSize();
         //No .OnTop for JOptionPane, so if the frame is larger than a certain size select player as the box would fall behind the screen
-
-        if (size.getWidth() > 950 && size.getHeight() > 491)
-        {
-            choice = 0;
-        }
-        else
-        {
         String[] choices = new String[2];
         choices[0] = "Player";
         choices[1] = "Computer";
@@ -85,7 +80,9 @@ public class Board implements ActionListener, ComponentListener {
                 null, //Icon icon,
                 choices, //Object[] options,
                 "Player");//Object initialValue
-        }
+        frame.setVisible(true);
+        frame.setLocation(invisLocation);
+        frame.setSize(invisSize);
 
 
         if (choice == 0)
@@ -102,6 +99,7 @@ public class Board implements ActionListener, ComponentListener {
             WindowEvent wev = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
             Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
 
+
         }
 
         else
@@ -111,6 +109,7 @@ public class Board implements ActionListener, ComponentListener {
 
             c.computerTurn();
             statuslbl.setText("Player's Turn!");
+
 
         }
     }
@@ -124,8 +123,10 @@ public class Board implements ActionListener, ComponentListener {
     //turnComplete changes the turn and adds to the turnCount, called whenever a move is made on the board.
     private void turnComplete()
     {
+
         turn = !turn;
         turnCount++;
+
 
     }
 
@@ -157,12 +158,13 @@ public class Board implements ActionListener, ComponentListener {
     {
         if (b.getText() != "" )
         {
-            System.out.println("Please try again, you can't move there!");
+
         }
         else if (turn)
         {
             b.setText("O");
             turnComplete();
+
         }
 
 
@@ -202,18 +204,12 @@ public class Board implements ActionListener, ComponentListener {
         }
         playagain.setSize(new Dimension( (int) (startsizes[9].getWidth() * x), (int) (startsizes[9].getHeight() * y)));
         playagain.setLocation(new Point((int) (startLocations[9].getX() * x), (int) (startLocations[9].getY() * y)));
+
         statuslbl.setSize(new Dimension((int) (startsizes[10].getWidth() * x), (int) (startsizes[10].getHeight() * y)));
         statuslbl.setLocation(new Point((int) (startLocations[10].getX() * x), (int) (startLocations[10].getY() * y)));
+
         playagain.setFont(new Font("Dialog",Font.PLAIN, (int) ((double)labelFontStart * multiplier )));
         statuslbl.setFont(new Font("Dialog",Font.PLAIN, (int) ((double)labelFontStart * multiplier )));
-
-
-        //System.out.println(x + ", " + y);
-        frame.pack();
-
-
-
-
 
     }
 
@@ -298,16 +294,6 @@ public class Board implements ActionListener, ComponentListener {
         startLocations[10] = statuslbl.getLocation();
         startsizes[9] = playagain.getSize();
         startsizes[10] = statuslbl.getSize();
-       /* buttons[0].setBounds(0,50,265,150);
-        buttons[1].setBounds(273,50,265,150);
-        buttons[2].setBounds(546,50,265,150);
-        buttons[3].setBounds(0,205,265,190);
-        buttons[4].setBounds(273,205,265,190);
-        buttons[5].setBounds(546,205,265,190);
-        buttons[6].setBounds(0,405,265,190);
-        buttons[7].setBounds(273,405,265,190);
-        buttons[8].setBounds(546,405,265,190); */
-
 
         buttons[0].setLocation(10, 50);
         buttons[1].setLocation(283, 50);
@@ -337,7 +323,7 @@ public class Board implements ActionListener, ComponentListener {
 
         //Packs the frame and makes it visible
         frame.pack();
-        frame.setVisible(true);
+        //frame.setVisible(true);
 
 
     }
@@ -361,12 +347,6 @@ public class Board implements ActionListener, ComponentListener {
 
         //This for loop finds the index of the button that was clicked and sets it to noMove so the computer
         //knows which button was just clicked
-        for (int i = 0; i < 9; i ++)
-        {
-            if (button.equals(buttons[i]))
-            {
-            }
-        }
 
 
         if (button.getText().equals("Play Again"))
